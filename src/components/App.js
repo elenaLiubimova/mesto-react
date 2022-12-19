@@ -1,34 +1,40 @@
+import React from 'react';
 import Header from "./Header";
 import Main from "./Main";
 import Footer from "./Footer";
 import PopupWithForm from "./PopupWithForm";
 
 function App() {
-  
+  const [isEditAvatarPopupOpen, setAvatarPopupOpen] = React.useState(false);
+  const [isEditProfilePopupOpen, setProfilePopupOpen] = React.useState(false);
+  const [isAddPlacePopupOpen, setAddPlacePopupOpen] = React.useState(false);
+
   function handleEditAvatarClick() {
-    const popupTypePhoto = document.querySelector(".popup_type_photo");
-    popupTypePhoto.classList.add("popup_opened");
+    setAvatarPopupOpen(!isEditAvatarPopupOpen);
   }
 
   function handleEditProfileClick() {
-    const popupTypeProfile = document.querySelector(".popup_type_profile");
-    popupTypeProfile.classList.add("popup_opened");
+    setProfilePopupOpen(!isEditProfilePopupOpen);
   }
 
   function handleAddPlaceClick() {
-    const popupTypeAddPhoto = document.querySelector(".popup_type_add-photo");
-    popupTypeAddPhoto.classList.add("popup_opened");
+    setAddPlacePopupOpen(!isAddPlacePopupOpen);
   }
+
+  // const [isPopupClosed, setPopupClose] = React.useState(false);
+  // function closeAllPopups() {
+  //   setPopupClose(!isPopupClosed);
+  // }
   
   return (
     <div className="root">
       <Header />
-      <Main />
+      <Main onEditProfile={handleEditProfileClick} onAddPlace={handleAddPlaceClick} onEditAvatar={handleEditAvatarClick}/>
       <Footer />
-      <PopupWithForm name="photo" title="Редактировать аватар" />;
-      <PopupWithForm name="profile" title="Редактировать аватар" />;
-      <PopupWithForm name="add-photo" title="Редактировать аватар" />;
-      <template id="card-template">
+      <PopupWithForm name="photo" title="Редактировать аватар" isOpen={isEditAvatarPopupOpen}/>
+      <PopupWithForm name="profile" title="Редактировать профиль" isOpen={isEditProfilePopupOpen} />
+      <PopupWithForm name="add-photo" title="Новое место" isOpen={isAddPlacePopupOpen} />
+      {/* <template id="card-template">
         <li className="card">
           <button
             className="delete-button"
@@ -52,7 +58,7 @@ function App() {
             </div>
           </div>
         </li>
-      </template>
+      </template> */}
     </div>
   );
 }
