@@ -1,12 +1,13 @@
 import React from "react";
 import { api } from "../utils/Api";
+import Card from "./Card";
 
 function Main(props) {
   const [userName, setUserName] = React.useState("");
   const [userDescription, setUserDescription] = React.useState("");
   const [userAvatar, setUserAvatar] = React.useState("#");
   const [cards, setCards] = React.useState([]);
-  console.log(cards)
+  const handleCardClick = props.handleCardClick;
 
   React.useEffect(() => {
     api
@@ -17,14 +18,16 @@ function Main(props) {
         setUserAvatar(userData.avatar);
       })
       .catch((error) => console.log(`Ошибка: ${error}`));
+  }, [userName, userDescription, userAvatar]);
 
+  React.useEffect(() => {
     api
       .getInitialCards()
       .then((cardsData) => {
-        // setCards([...cards, cardsData]);
+        setCards(cardsData);
       })
       .catch((error) => console.log(`Ошибка: ${error}`));
-  });
+  }, [cards]);
 
   return (
     <main>
@@ -59,33 +62,11 @@ function Main(props) {
         className="photos container"
         aria-label="Карточки с фотографиями"
       >
-        {/* {cards.map((card, i) => (
-          <ul className="photos__cards" key={i}>
-            <li className="card">
-              <button
-                className="delete-button"
-                type="button"
-                aria-label="Кнопка удаления фото"
-              ></button>
-              <img
-                className="card__image"
-                src="#"
-                alt="Альтернативный текст фото"
-              />
-              <div className="card__title-and-like">
-                <h2 className="card__title">{card.name}</h2>
-                <div className="card__like">
-                  <button
-                    className="like-button like-button_inactive"
-                    type="button"
-                    aria-label="Кнопка 'Нравится'"
-                  ></button>
-                  <p className="card__like-counter"></p>
-                </div>
-              </div>
-            </li>
-          </ul>
-        ))} */}
+        <ul className="photos__cards">
+          {cards.map((card, i) => (
+            <Card card={card} onCardClick={handleCardClick}/>
+          ))}
+        </ul>
       </section>
     </main>
   );

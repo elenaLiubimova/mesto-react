@@ -1,11 +1,10 @@
 function PopupWithForm(props) {
   return (
-    <div className={(props.isOpen ? `popup popup_opened popup_type_${props.onClose}` : `popup popup_type_${props.name}`)}>
+    <div className={props.isOpen ? `popup popup_opened popup_type_${props.name}` : `popup popup_type_${props.name}`}>
       <div className={`popup__container popup__container_type_${props.name}`}>
         <form className="edit-form" name={props.name} noValidate>
           <h2 className="edit-form__title">{props.title}</h2>
-          {/* {props.children} */}
-          
+          {props.children}
           <button
             className="save-button"
             type="submit"
@@ -18,6 +17,7 @@ function PopupWithForm(props) {
           className="close-button"
           type="button"
           aria-label="Кнопка закрытия попапа"
+          onClick={props.onClose}
         ></button>
       </div>
     </div>
