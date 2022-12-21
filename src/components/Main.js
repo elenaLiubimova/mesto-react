@@ -1,4 +1,5 @@
 import React from "react";
+import { Api } from "../utils/api";
 import { api } from "../utils/api";
 import Card from "./Card";
 
