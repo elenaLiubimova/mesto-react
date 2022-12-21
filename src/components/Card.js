@@ -1,8 +1,9 @@
 function Card(props) {
+  // Функция открытия полноразмерного фото
   function handleClick() {
-    props.onCardClick();
+    props.onCardClick(props.card);
   }
-  
+
   return (
     <li className="card" key={props.card._id}>
       <button

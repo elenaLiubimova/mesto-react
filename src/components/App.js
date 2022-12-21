@@ -6,33 +6,45 @@ import PopupWithForm from "./PopupWithForm";
 import ImagePopup from "./ImagePopup";
 
 function App() {
+  // Переменная состояния попапа установки аватара
   const [isEditAvatarPopupOpen, setAvatarPopupOpen] = React.useState(false);
+  // Переменная состояния попапа редактирования профиля
   const [isEditProfilePopupOpen, setProfilePopupOpen] = React.useState(false);
+  // Переменная состояния попапа добавления карточки
   const [isAddPlacePopupOpen, setAddPlacePopupOpen] = React.useState(false);
+  // Переменная состояния карточек
   const [selectedCard, setSelectedCard] = React.useState();
 
+  // Обработчик кнопки редактирования аватара
   function handleEditAvatarClick() {
     setAvatarPopupOpen(!isEditAvatarPopupOpen);
   }
 
+  // Обработчик кнопки редактирования профиля
   function handleEditProfileClick() {
     setProfilePopupOpen(!isEditProfilePopupOpen);
   }
 
+  // Обработчик кнопки добавления карточки
   function handleAddPlaceClick() {
     setAddPlacePopupOpen(!isAddPlacePopupOpen);
   }
 
-  function closeAllPopups(e) {
-    e.target.closest(".popup").classList.remove("popup_opened");
-  }
-
-  function handleCardClick(card) {
+  // Обработчик открытия полноразмерной карточки
+  function handleCardClick(selectedCard) {
     setSelectedCard(selectedCard);
   }
 
+  // Обработчик закрытия всех попапов
+  function closeAllPopups() {
+    setSelectedCard(null);
+    setAvatarPopupOpen();
+    setProfilePopupOpen();
+    setAddPlacePopupOpen();
+  }
+
   return (
-    <div className="root">
+    <>
       <Header />
       <Main
         onEditProfile={handleEditProfileClick}
@@ -131,7 +143,7 @@ function App() {
         }
       />
       <ImagePopup card={selectedCard} onClose={closeAllPopups} />
-    </div>
+    </>
   );
 }
 
