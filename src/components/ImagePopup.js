@@ -1,10 +1,22 @@
 function ImagePopup(props) {
   return (
-    <div className={props.card ? `popup popup_opened popup_type_photo` : `popup popup_type_photo`}>
+    <div
+      className={
+        props.card
+          ? `popup popup_opened popup_type_photo`
+          : `popup popup_type_photo`
+      }
+    >
       <div className="popup__container popup__container_type_photo">
         <figure className="full-photo-container">
-          <img className="full-photo" src="#" alt="Альтернативный текст фото" />
-          <figcaption className="full-photo-container__caption"></figcaption>
+          <img
+            className="full-photo"
+            src={props.card ? props.card.link : `#`}
+            alt="Альтернативный текст фото"
+          />
+          <figcaption className="full-photo-container__caption">
+            {props.card && props.card.name}
+          </figcaption>
         </figure>
         <button
           className="close-button"

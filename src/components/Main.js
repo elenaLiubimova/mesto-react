@@ -1,14 +1,19 @@
 import React from "react";
-import { api } from "../utils/Api";
+import { api } from "../utils/api";
 import Card from "./Card";
 
 function Main(props) {
+  // Переменные состояния информации профиля
   const [userName, setUserName] = React.useState("");
   const [userDescription, setUserDescription] = React.useState("");
   const [userAvatar, setUserAvatar] = React.useState("#");
+  // Переменная состояния информации о карточках
   const [cards, setCards] = React.useState([]);
-  const handleCardClick = props.handleCardClick;
 
+  // "Пробрасываем" обработчик открытия полноразмерной карточки
+  const handleCardClick = props.onCardClick;
+
+  // Функция эффекта для информации профиля
   React.useEffect(() => {
     api
       .getProfileInfo()
@@ -20,6 +25,7 @@ function Main(props) {
       .catch((error) => console.log(`Ошибка: ${error}`));
   }, [userName, userDescription, userAvatar]);
 
+  // Функция эффекта для карточек
   React.useEffect(() => {
     api
       .getInitialCards()
@@ -63,8 +69,9 @@ function Main(props) {
         aria-label="Карточки с фотографиями"
       >
         <ul className="photos__cards">
+          {/* Отрисовка карточек с сервера */}
           {cards.map((card, i) => (
-            <Card card={card} onCardClick={handleCardClick}/>
+            <Card card={card} onCardClick={handleCardClick} />
           ))}
         </ul>
       </section>
