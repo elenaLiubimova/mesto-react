@@ -11,11 +11,11 @@ function ImagePopup(props) {
         <figure className="full-photo-container">
           <img
             className="full-photo"
-            src={props.card ? props.card.link : `#`}
-            alt="Альтернативный текст фото"
+            src={props.card ? props.card.link : "#"}
+            alt={props.card ? props.card.name : ""}
           />
           <figcaption className="full-photo-container__caption">
-            {props.card && props.card.name}
+            {props.card ? props.card.name : ""}
           </figcaption>
         </figure>
         <button

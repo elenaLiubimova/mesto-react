@@ -1,4 +1,4 @@
-import React from "react";
+import { useState } from "react";
 import Header from "./Header";
 import Main from "./Main";
 import Footer from "./Footer";
@@ -7,13 +7,13 @@ import ImagePopup from "./ImagePopup";
 
 function App() {
   // Переменная состояния попапа установки аватара
-  const [isEditAvatarPopupOpen, setAvatarPopupOpen] = React.useState(false);
+  const [isEditAvatarPopupOpen, setAvatarPopupOpen] = useState(false);
   // Переменная состояния попапа редактирования профиля
-  const [isEditProfilePopupOpen, setProfilePopupOpen] = React.useState(false);
+  const [isEditProfilePopupOpen, setProfilePopupOpen] = useState(false);
   // Переменная состояния попапа добавления карточки
-  const [isAddPlacePopupOpen, setAddPlacePopupOpen] = React.useState(false);
+  const [isAddPlacePopupOpen, setAddPlacePopupOpen] = useState(false);
   // Переменная состояния карточек
-  const [selectedCard, setSelectedCard] = React.useState();
+  const [selectedCard, setSelectedCard] = useState(null);
 
   // Обработчик кнопки редактирования аватара
   function handleEditAvatarClick() {
@@ -58,6 +58,7 @@ function App() {
         title="Обновить аватар"
         isOpen={isEditAvatarPopupOpen}
         onClose={closeAllPopups}
+        buttonText="Сохранить"
         children={
           <label className="edit-form__field">
             <input
@@ -77,6 +78,7 @@ function App() {
         title="Редактировать профиль"
         isOpen={isEditProfilePopupOpen}
         onClose={closeAllPopups}
+        buttonText="Сохранить"
         children={
           <>
             <label className="edit-form__field">
@@ -113,6 +115,7 @@ function App() {
         title="Новое место"
         isOpen={isAddPlacePopupOpen}
         onClose={closeAllPopups}
+        buttonText="Создать"
         children={
           <>
             <label className="edit-form__field">
