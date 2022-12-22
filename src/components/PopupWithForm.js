@@ -16,7 +16,7 @@ function PopupWithForm(props) {
             type="submit"
             aria-label="Кнопка сохранения данных"
           >
-            Сохранить
+            {props.buttonText}
           </button>
         </form>
         <button

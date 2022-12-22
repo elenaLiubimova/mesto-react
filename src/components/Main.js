@@ -1,40 +1,35 @@
-import React from "react";
-import { Api } from "../utils/api";
+import { useEffect, useState } from "react";
 import { api } from "../utils/api";
 import Card from "./Card";
 
 function Main(props) {
   // Переменные состояния информации профиля
-  const [userName, setUserName] = React.useState("");
-  const [userDescription, setUserDescription] = React.useState("");
-  const [userAvatar, setUserAvatar] = React.useState("#");
+  const [userName, setUserName] = useState("");
+  const [userDescription, setUserDescription] = useState("");
+  const [userAvatar, setUserAvatar] = useState("#");
   // Переменная состояния информации о карточках
-  const [cards, setCards] = React.useState([]);
+  const [cards, setCards] = useState([]);
 
   // "Пробрасываем" обработчик открытия полноразмерной карточки
   const handleCardClick = props.onCardClick;
 
-  // Функция эффекта для информации профиля
-  React.useEffect(() => {
-    api
-      .getProfileInfo()
-      .then((userData) => {
+  // Функция эффекта для данных профиля и карточки
+  useEffect(() => {
+    Promise.all([api.getProfileInfo(), api.getInitialCards()])
+      .then(([userData, cardsData]) => {
         setUserName(userData.name);
         setUserDescription(userData.about);
         setUserAvatar(userData.avatar);
-      })
-      .catch((error) => console.log(`Ошибка: ${error}`));
-  }, [userName, userDescription, userAvatar]);
 
-  // Функция эффекта для карточек
-  React.useEffect(() => {
-    api
-      .getInitialCards()
-      .then((cardsData) => {
         setCards(cardsData);
       })
       .catch((error) => console.log(`Ошибка: ${error}`));
-  }, [cards]);
+  }, [
+    props.onEditProfile,
+    props.onAddPlace,
+    props.onEditAvatar,
+    props.onCardClick,
+  ]);
 
   return (
     <main>
@@ -72,7 +67,7 @@ function Main(props) {
         <ul className="photos__cards">
           {/* Отрисовка карточек с сервера */}
           {cards.map((card, i) => (
-            <Card card={card} onCardClick={handleCardClick} />
+            <Card card={card} onCardClick={handleCardClick} key={card._id} />
           ))}
         </ul>
       </section>
