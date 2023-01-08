@@ -14,6 +14,26 @@ function App() {
   const [isAddPlacePopupOpen, setAddPlacePopupOpen] = useState(false);
   // Переменная состояния карточек
   const [selectedCard, setSelectedCard] = useState(null);
+  // Переменная состояния для информации профиля
+  const [currentUser, setCurrentUser] = useState("");
+
+  // Функция эффекта для данных профиля и карточки
+  useEffect(() => {
+    Promise.all([api.getProfileInfo(), api.getInitialCards()])
+      .then(([userData, cardsData]) => {
+        setUserName(userData.name);
+        setUserDescription(userData.about);
+        setUserAvatar(userData.avatar);
+
+        setCards(cardsData);
+      })
+      .catch((error) => console.log(`Ошибка: ${error}`));
+  }, [
+    props.onEditProfile,
+    props.onAddPlace,
+    props.onEditAvatar,
+    props.onCardClick,
+  ]);
 
   // Обработчик кнопки редактирования аватара
   function handleEditAvatarClick() {
