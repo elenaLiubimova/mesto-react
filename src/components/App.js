@@ -1,9 +1,11 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Header from "./Header";
 import Main from "./Main";
 import Footer from "./Footer";
 import PopupWithForm from "./PopupWithForm";
 import ImagePopup from "./ImagePopup";
+import { api } from "../utils/api";
+import { CurrentUserContext } from "../contexts/CurrentUserContext";
 
 function App() {
   // Переменная состояния попапа установки аватара
@@ -15,25 +17,20 @@ function App() {
   // Переменная состояния карточек
   const [selectedCard, setSelectedCard] = useState(null);
   // Переменная состояния для информации профиля
-  const [currentUser, setCurrentUser] = useState("");
+  const [currentUser, setCurrentUser] = useState({});
+  // Переменная состояния для карточки
+  const [cards, setCards] = useState({});
 
   // Функция эффекта для данных профиля и карточки
   useEffect(() => {
     Promise.all([api.getProfileInfo(), api.getInitialCards()])
-      .then(([userData, cardsData]) => {
-        setUserName(userData.name);
-        setUserDescription(userData.about);
-        setUserAvatar(userData.avatar);
+      .then(([currentUser, cards]) => {
+        setCurrentUser(currentUser);
 
-        setCards(cardsData);
+        setCards(cards);
       })
       .catch((error) => console.log(`Ошибка: ${error}`));
-  }, [
-    props.onEditProfile,
-    props.onAddPlace,
-    props.onEditAvatar,
-    props.onCardClick,
-  ]);
+  }, []);
 
   // Обработчик кнопки редактирования аватара
   function handleEditAvatarClick() {
@@ -64,7 +61,8 @@ function App() {
   }
 
   return (
-    <>
+    <CurrentUserContext.Provider value={{currentUser, cards}}>
+      <>
       <Header />
       <Main
         onEditProfile={handleEditProfileClick}
@@ -166,7 +164,8 @@ function App() {
         }
       />
       <ImagePopup card={selectedCard} onClose={closeAllPopups} />
-    </>
+      </>
+    </CurrentUserContext.Provider>
   );
 }
 
