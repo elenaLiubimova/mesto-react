@@ -31,9 +31,10 @@ function App() {
       .changeLikeCardStatus(card._id, isLiked)
       .then((newCard) => {
         setCards((cardsArr) =>
-        cardsArr.map((currentCard) => (currentCard._id === card._id ? newCard : currentCard))
+          cardsArr.map((currentCard) =>
+            currentCard._id === card._id ? newCard : currentCard
+          )
         );
-
       })
       .catch((error) => console.log(`Ошибка: ${error}`));
   }
@@ -77,6 +78,17 @@ function App() {
     setAddPlacePopupOpen();
   }
 
+  // Функция обновления данных профиля
+  function handleUpdateUser({name, about}) {
+    api
+    .setProfileInfo(name, about)
+      .then((currentUser) => {
+        setCurrentUser(currentUser);
+        closeAllPopups();
+      })
+      .catch((error) => console.log(`Ошибка: ${error}`));
+  }
+
   return (
     <CurrentUserContext.Provider value={{ currentUser, cards }}>
       <>
@@ -89,7 +101,11 @@ function App() {
           onCardLike={handleCardLike}
         />
         <Footer />
-        <EditProfilePopup isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} />
+        <EditProfilePopup
+          isOpen={isEditProfilePopupOpen}
+          onUpdateUser={handleUpdateUser}
+          onClose={closeAllPopups}
+        />
 
         <PopupWithForm
           name="avatar"
@@ -111,7 +127,7 @@ function App() {
             </label>
           }
         />
-        
+
         <PopupWithForm
           name="add-photo"
           title="Новое место"
