@@ -1,39 +1,14 @@
-import { useEffect, useState, useContext } from "react";
+import { useContext } from "react";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
-import { api } from "../utils/api";
 import Card from "./Card";
 
 function Main(props) {
-  // Переменные состояния информации профиля
-  // const [userName, setUserName] = useState("");
-  // const [userDescription, setUserDescription] = useState("");
-  // const [userAvatar, setUserAvatar] = useState("#");
-  // // Переменная состояния информации о карточках
-  // const [cards, setCards] = useState([]);
 
-  // "Пробрасываем" обработчик открытия полноразмерной карточки
+  // "Пробрасываем" обработчики открытия полноразмерной карточки и лайка
   const handleCardClick = props.onCardClick;
+  const handleCardLike = props.onCardLike;
 
   const {currentUser, cards} = useContext(CurrentUserContext);
-  console.log(cards);
-
-  // Функция эффекта для данных профиля и карточки
-  // useEffect(() => {
-  //   Promise.all([api.getProfileInfo(), api.getInitialCards()])
-  //     .then(([userData, cardsData]) => {
-  //       setUserName(userData.name);
-  //       setUserDescription(userData.about);
-  //       setUserAvatar(userData.avatar);
-
-  //       setCards(cardsData);
-  //     })
-  //     .catch((error) => console.log(`Ошибка: ${error}`));
-  // }, [
-  //   props.onEditProfile,
-  //   props.onAddPlace,
-  //   props.onEditAvatar,
-  //   props.onCardClick,
-  // ]);
 
   return (
     <main>
@@ -70,9 +45,9 @@ function Main(props) {
       >
         <ul className="photos__cards">
           {/* Отрисовка карточек с сервера */}
-          {/* {cards.map((card, i) => (
-            <Card card={card} onCardClick={handleCardClick} key={card._id} />
-          ))} */}
+          {cards.map((card, i) => (
+            <Card card={card} onCardClick={handleCardClick} onCardLike={handleCardLike} key={card._id} />
+          ))}
         </ul>
       </section>
     </main>

@@ -65,6 +65,15 @@ class Api {
     }).then(this._checkResponse);
   }
 
+  changeLikeCardStatus(id, isLiked) {
+    console.log(isLiked)
+    if (isLiked) {
+      return this.deleteLike(id)
+    }
+
+    return this.addLike(id);
+  }
+
   changeAvatar(avatar) {
     return fetch(`${this._baseUrl}/users/me/avatar`, {
       headers: this._headers,

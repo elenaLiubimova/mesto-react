@@ -1,31 +1,54 @@
-function Card(props) {
+import { useContext } from "react";
+import { CurrentUserContext } from "../contexts/CurrentUserContext";
+
+function Card({ card, onCardClick, onCardLike }) {
   // Функция открытия полноразмерного фото
   function handleClick() {
-    props.onCardClick(props.card);
+    onCardClick(card);
   }
+
+  // обработчик нажатия лайка
+  function handleLike() {
+    onCardLike(card);
+  }
+
+  const {currentUser, cards} = useContext(CurrentUserContext);
+
+  // Определяем, являемся ли мы владельцем текущей карточки
+const isOwn = card.owner._id === currentUser._id;
+
+// Определяем, есть ли у карточки лайк, поставленный текущим пользователем
+const isLiked = card.likes.some(like => like._id === currentUser._id);
+
+// Создаём переменную, которую после зададим в `className` для кнопки лайка
+const cardLikeButtonClassName = ( 
+  `like-button ${!isLiked && 'like-button_inactive'}` 
+);
 
   return (
     <li className="card">
-      <button
+      {isOwn && <button
         className="delete-button"
         type="button"
         aria-label="Кнопка удаления фото"
-      ></button>
+      ></button>}
       <img
         className="card__image"
-        src={props.card.link}
-        alt={props.card.name}
+        src={card.link}
+        alt={card.name}
         onClick={handleClick}
       />
       <div className="card__title-and-like">
-        <h2 className="card__title">{props.card.name}</h2>
+        <h2 className="card__title">{card.name}</h2>
         <div className="card__like">
           <button
-            className="like-button like-button_inactive"
+            // className="like-button like-button_inactive"
+            className={cardLikeButtonClassName}
             type="button"
             aria-label="Кнопка 'Нравится'"
+            onClick={handleLike}
           ></button>
-          <p className="card__like-counter">{props.card.likes.length}</p>
+          <p className="card__like-counter">{card.likes.length}</p>
         </div>
       </div>
     </li>
