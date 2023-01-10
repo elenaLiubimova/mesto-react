@@ -7,6 +7,7 @@ import ImagePopup from "./ImagePopup";
 import { api } from "../utils/api";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 import EditProfilePopup from "./EditProfilePopup";
+import EditAvatarPopup from "./EditAvatarPopup";
 
 function App() {
   // Переменная состояния попапа установки аватара
@@ -79,9 +80,19 @@ function App() {
   }
 
   // Функция обновления данных профиля
-  function handleUpdateUser({name, about}) {
+  function handleUpdateUser({ name, about }) {
     api
-    .setProfileInfo(name, about)
+      .setProfileInfo(name, about)
+      .then((currentUser) => {
+        setCurrentUser(currentUser);
+        closeAllPopups();
+      })
+      .catch((error) => console.log(`Ошибка: ${error}`));
+  }
+
+  function handleUpdateAvatar(avatar) {
+    api
+      .changeAvatar(avatar)
       .then((currentUser) => {
         setCurrentUser(currentUser);
         closeAllPopups();
@@ -107,25 +118,10 @@ function App() {
           onClose={closeAllPopups}
         />
 
-        <PopupWithForm
-          name="avatar"
-          title="Обновить аватар"
+        <EditAvatarPopup
           isOpen={isEditAvatarPopupOpen}
+          onUpdateAvatar={handleUpdateAvatar}
           onClose={closeAllPopups}
-          buttonText="Сохранить"
-          children={
-            <label className="edit-form__field">
-              <input
-                className="edit-form__item"
-                id="avatar-input"
-                type="url"
-                name="avatar"
-                placeholder="Ссылка на аватар"
-                required
-              />
-              <span className="edit-form__item-error avatar-input-error"></span>
-            </label>
-          }
         />
 
         <PopupWithForm
