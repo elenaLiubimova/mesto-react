@@ -16,8 +16,8 @@ const EditProfilePopup = (props) => {
     setDescription(evt.target.value);
   }
 
-  function handleSubmit(e) {
-    e.preventDefault();
+  function handleSubmit(evt) {
+    evt.preventDefault();
   
     props.onUpdateUser({
       name,
@@ -41,7 +41,7 @@ const EditProfilePopup = (props) => {
       isOpen={props.isOpen}
       onClose={props.onClose}
       buttonText="Сохранить"
-      onSubmit={(e) => handleSubmit(e)}
+      onSubmit={(evt) => handleSubmit(evt)}
       children={
         <>
           <label className="edit-form__field">

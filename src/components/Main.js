@@ -3,12 +3,12 @@ import { CurrentUserContext } from "../contexts/CurrentUserContext";
 import Card from "./Card";
 
 function Main(props) {
-
   // "Пробрасываем" обработчики открытия полноразмерной карточки и лайка
   const handleCardClick = props.onCardClick;
   const handleCardLike = props.onCardLike;
+  const handleCardDelete = props.onCardDelete;
 
-  const {currentUser, cards} = useContext(CurrentUserContext);
+  const { currentUser, cards } = useContext(CurrentUserContext);
 
   return (
     <main>
@@ -20,7 +20,11 @@ function Main(props) {
             aria-label="Кнопка редактирования аватара"
             onClick={props.onEditAvatar}
           ></button>
-          <img className="profile__photo" src={currentUser.avatar} alt="Фото профиля" />
+          <img
+            className="profile__photo"
+            src={currentUser.avatar}
+            alt="Фото профиля"
+          />
         </div>
         <div className="profile__info-and-edit">
           <h1 className="profile__title">{currentUser.name}</h1>
@@ -46,7 +50,13 @@ function Main(props) {
         <ul className="photos__cards">
           {/* Отрисовка карточек с сервера */}
           {cards.map((card, i) => (
-            <Card card={card} onCardClick={handleCardClick} onCardLike={handleCardLike} key={card._id} />
+            <Card
+              card={card}
+              onCardClick={handleCardClick}
+              onCardLike={handleCardLike}
+              onCardDelete={handleCardDelete}
+              key={card._id}
+            />
           ))}
         </ul>
       </section>

@@ -8,6 +8,7 @@ import { api } from "../utils/api";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 import EditProfilePopup from "./EditProfilePopup";
 import EditAvatarPopup from "./EditAvatarPopup";
+import AddPlacePopup from "./AddPlacePopup";
 
 function App() {
   // Переменная состояния попапа установки аватара
@@ -16,13 +17,22 @@ function App() {
   const [isEditProfilePopupOpen, setProfilePopupOpen] = useState(false);
   // Переменная состояния попапа добавления карточки
   const [isAddPlacePopupOpen, setAddPlacePopupOpen] = useState(false);
-  // Переменная состояния карточек
+  // Переменная состояния полноразмерной карточки
   const [selectedCard, setSelectedCard] = useState(null);
   // Переменная состояния для информации профиля
   const [currentUser, setCurrentUser] = useState({});
-  // Переменная состояния для карточки
+  // Переменная состояния для массива карточек
   const [cards, setCards] = useState([]);
 
+  // Обработчик добавления новой карточки
+  function handleAddPlaceSubmit(name, link) {
+    api
+      .addNewCard(name, link)
+      .then((newCard) => setCards([newCard, ...cards]))
+      .catch((error) => console.log(`Ошибка: ${error}`));
+  }
+
+  // Обработчик лайка карточки
   function handleCardLike(card) {
     // Проверяем, есть ли уже лайк на карточке
     const isLiked = card.likes.some((like) => like._id === currentUser._id);
@@ -38,6 +48,13 @@ function App() {
         );
       })
       .catch((error) => console.log(`Ошибка: ${error}`));
+  }
+
+  // Функция обработки удаления карточки
+  function handleCardDelete(card) {
+    api.deleteCard(card._id).catch((error) => console.log(`Ошибка: ${error}`));
+
+    setCards(cards.filter((chekedCard) => chekedCard._id !== card._id));
   }
 
   // Функция эффекта для данных профиля и карточки
@@ -110,6 +127,7 @@ function App() {
           onEditAvatar={handleEditAvatarClick}
           onCardClick={handleCardClick}
           onCardLike={handleCardLike}
+          onCardDelete={handleCardDelete}
         />
         <Footer />
         <EditProfilePopup
@@ -124,40 +142,10 @@ function App() {
           onClose={closeAllPopups}
         />
 
-        <PopupWithForm
-          name="add-photo"
-          title="Новое место"
+        <AddPlacePopup
           isOpen={isAddPlacePopupOpen}
+          onAddPlace={handleAddPlaceSubmit}
           onClose={closeAllPopups}
-          buttonText="Создать"
-          children={
-            <>
-              <label className="edit-form__field">
-                <input
-                  className="edit-form__item"
-                  id="place-input"
-                  type="text"
-                  name="name"
-                  placeholder="Название"
-                  minLength="2"
-                  maxLength="30"
-                  required
-                />
-                <span className="edit-form__item-error place-input-error"></span>
-              </label>
-              <label className="edit-form__field">
-                <input
-                  className="edit-form__item"
-                  id="photo-input"
-                  type="url"
-                  name="link"
-                  placeholder="Ссылка на картинку"
-                  required
-                />
-                <span className="edit-form__item-error photo-input-error"></span>
-              </label>
-            </>
-          }
         />
         <ImagePopup card={selectedCard} onClose={closeAllPopups} />
       </>
