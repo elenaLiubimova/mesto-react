@@ -2,12 +2,20 @@ import { useContext } from "react";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 import Card from "./Card";
 
-function Main(props) {
+const Main = ({
+  onCardClick,
+  onCardLike,
+  onCardDelete,
+  onEditAvatar,
+  onEditProfile,
+  onAddPlace,
+}) => {
   // "Пробрасываем" обработчики открытия полноразмерной карточки и лайка
-  const handleCardClick = props.onCardClick;
-  const handleCardLike = props.onCardLike;
-  const handleCardDelete = props.onCardDelete;
+  const handleCardClick = onCardClick;
+  const handleCardLike = onCardLike;
+  const handleCardDelete = onCardDelete;
 
+  // Контекст для текущего пользователя и карточек
   const { currentUser, cards } = useContext(CurrentUserContext);
 
   return (
@@ -18,7 +26,7 @@ function Main(props) {
             className="edit-button edit-button_type_photo"
             type="button"
             aria-label="Кнопка редактирования аватара"
-            onClick={props.onEditAvatar}
+            onClick={onEditAvatar}
           ></button>
           <img
             className="profile__photo"
@@ -33,14 +41,14 @@ function Main(props) {
             className="edit-button edit-button_type_profile"
             type="button"
             aria-label="Кнопка редактирования профиля"
-            onClick={props.onEditProfile}
+            onClick={onEditProfile}
           ></button>
         </div>
         <button
           className="add-button"
           type="button"
           aria-label="Кнопка добавления фотографий"
-          onClick={props.onAddPlace}
+          onClick={onAddPlace}
         ></button>
       </section>
       <section
@@ -62,6 +70,6 @@ function Main(props) {
       </section>
     </main>
   );
-}
+};
 
 export default Main;

@@ -4,8 +4,8 @@ import { api } from "../utils/api";
 import PopupWithForm from "./PopupWithForm";
 
 const EditProfilePopup = (props) => {
-  const [name, setName] = useState('');
-  const [description, setDescription] = useState('');
+  const [name, setName] = useState("");
+  const [description, setDescription] = useState("");
   const currentUser = useContext(CurrentUserContext);
 
   function handleNameInput(evt) {
@@ -18,7 +18,7 @@ const EditProfilePopup = (props) => {
 
   function handleSubmit(evt) {
     evt.preventDefault();
-  
+
     props.onUpdateUser({
       name,
       about: description,
@@ -26,14 +26,15 @@ const EditProfilePopup = (props) => {
   }
 
   useEffect(() => {
-    api.getProfileInfo().then((currentUser) => {
-      setName(currentUser.name);
-      setDescription(currentUser.about);
-    })
-    .catch((error) => console.log(`Ошибка: ${error}`));
-
+    api
+      .getProfileInfo()
+      .then((currentUser) => {
+        setName(currentUser.name);
+        setDescription(currentUser.about);
+      })
+      .catch((error) => console.log(`Ошибка: ${error}`));
   }, [currentUser]);
-  
+
   return (
     <PopupWithForm
       name="profile"

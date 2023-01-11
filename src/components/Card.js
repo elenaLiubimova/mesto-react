@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 
-function Card({ card, onCardClick, onCardLike, onCardDelete }) {
+const Card = ({ card, onCardClick, onCardLike, onCardDelete }) => {
   // Функция открытия полноразмерного фото
   function handleClick() {
     onCardClick(card);
@@ -49,7 +49,6 @@ function Card({ card, onCardClick, onCardLike, onCardDelete }) {
         <h2 className="card__title">{card.name}</h2>
         <div className="card__like">
           <button
-            // className="like-button like-button_inactive"
             className={cardLikeButtonClassName}
             type="button"
             aria-label="Кнопка 'Нравится'"
@@ -60,6 +59,6 @@ function Card({ card, onCardClick, onCardLike, onCardDelete }) {
       </div>
     </li>
   );
-}
+};
 
 export default Card;

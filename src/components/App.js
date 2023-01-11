@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import Header from "./Header";
 import Main from "./Main";
 import Footer from "./Footer";
-import PopupWithForm from "./PopupWithForm";
 import ImagePopup from "./ImagePopup";
 import { api } from "../utils/api";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
@@ -10,7 +9,7 @@ import EditProfilePopup from "./EditProfilePopup";
 import EditAvatarPopup from "./EditAvatarPopup";
 import AddPlacePopup from "./AddPlacePopup";
 
-function App() {
+const App = () => {
   // Переменная состояния попапа установки аватара
   const [isEditAvatarPopupOpen, setAvatarPopupOpen] = useState(false);
   // Переменная состояния попапа редактирования профиля
@@ -23,14 +22,6 @@ function App() {
   const [currentUser, setCurrentUser] = useState({});
   // Переменная состояния для массива карточек
   const [cards, setCards] = useState([]);
-
-  // Обработчик добавления новой карточки
-  function handleAddPlaceSubmit(name, link) {
-    api
-      .addNewCard(name, link)
-      .then((newCard) => setCards([newCard, ...cards]))
-      .catch((error) => console.log(`Ошибка: ${error}`));
-  }
 
   // Обработчик лайка карточки
   function handleCardLike(card) {
@@ -96,6 +87,17 @@ function App() {
     setAddPlacePopupOpen();
   }
 
+  // Обработчик добавления новой карточки
+  function handleAddPlaceSubmit(name, link) {
+    api
+      .addNewCard(name, link)
+      .then((newCard) => {
+        setCards([newCard, ...cards]);
+        closeAllPopups();
+      })
+      .catch((error) => console.log(`Ошибка: ${error}`));
+  }
+
   // Функция обновления данных профиля
   function handleUpdateUser({ name, about }) {
     api
@@ -107,6 +109,7 @@ function App() {
       .catch((error) => console.log(`Ошибка: ${error}`));
   }
 
+  // Обработчик попапа смены аватара
   function handleUpdateAvatar(avatar) {
     api
       .changeAvatar(avatar)
@@ -151,6 +154,6 @@ function App() {
       </>
     </CurrentUserContext.Provider>
   );
-}
+};
 
 export default App;
