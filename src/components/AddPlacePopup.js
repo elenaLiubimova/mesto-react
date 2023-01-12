@@ -33,6 +33,7 @@ const AddPlacePopup = ({ isOpen, onClose, onAddPlace }) => {
             <input
               className="edit-form__item"
               onChange={handleNameInput}
+              value={name}
               id="place-input"
               type="text"
               name="name"
@@ -47,6 +48,7 @@ const AddPlacePopup = ({ isOpen, onClose, onAddPlace }) => {
             <input
               className="edit-form__item"
               onChange={handleLinkInput}
+              value={link}
               id="photo-input"
               type="url"
               name="link"

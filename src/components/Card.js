@@ -37,7 +37,7 @@ const Card = ({ card, onCardClick, onCardLike, onCardDelete }) => {
           onClick={handleDelete}
           type="button"
           aria-label="Кнопка удаления фото"
-        ></button>
+        />
       )}
       <img
         className="card__image"
@@ -53,7 +53,7 @@ const Card = ({ card, onCardClick, onCardLike, onCardDelete }) => {
             type="button"
             aria-label="Кнопка 'Нравится'"
             onClick={handleLike}
-          ></button>
+          />
           <p className="card__like-counter">{card.likes.length}</p>
         </div>
       </div>

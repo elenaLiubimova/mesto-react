@@ -10,10 +10,6 @@ const Main = ({
   onEditProfile,
   onAddPlace,
 }) => {
-  // "Пробрасываем" обработчики открытия полноразмерной карточки и лайка
-  const handleCardClick = onCardClick;
-  const handleCardLike = onCardLike;
-  const handleCardDelete = onCardDelete;
 
   // Контекст для текущего пользователя и карточек
   const { currentUser, cards } = useContext(CurrentUserContext);
@@ -60,9 +56,9 @@ const Main = ({
           {cards.map((card, i) => (
             <Card
               card={card}
-              onCardClick={handleCardClick}
-              onCardLike={handleCardLike}
-              onCardDelete={handleCardDelete}
+              onCardClick={onCardClick}
+              onCardLike={onCardLike}
+              onCardDelete={onCardDelete}
               key={card._id}
             />
           ))}

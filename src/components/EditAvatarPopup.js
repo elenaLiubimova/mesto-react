@@ -2,17 +2,17 @@ import React, { useState, useRef } from "react";
 import PopupWithForm from "./PopupWithForm";
 
 const EditAvatarPopup = (props) => {
-  const [avatar, setAvatar] = useState("");
-  const inputRef = useRef();
+  // const [avatar, setAvatar] = useState("");
+  const inputRef = useRef('');
 
-  function handleAvatarInput() {
-    setAvatar(inputRef.current.value);
-  }
+  // function handleAvatarInput() {
+  //   setAvatar(inputRef.current.value);
+  // }
 
   function handleSubmit(evt) {
     evt.preventDefault();
 
-    props.onUpdateAvatar(avatar);
+    props.onUpdateAvatar({avatar: inputRef.current.value});
   }
 
   return (
@@ -28,8 +28,8 @@ const EditAvatarPopup = (props) => {
           <input
             className="edit-form__item"
             ref={inputRef}
-            value={avatar}
-            onChange={handleAvatarInput}
+            // value={inputRef.current.value}
+            // onChange={inputRef.current.value}
             id="avatar-input"
             type="url"
             name="avatar"

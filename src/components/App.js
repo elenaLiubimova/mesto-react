@@ -43,9 +43,12 @@ const App = () => {
 
   // Функция обработки удаления карточки
   function handleCardDelete(card) {
-    api.deleteCard(card._id).catch((error) => console.log(`Ошибка: ${error}`));
-
-    setCards(cards.filter((chekedCard) => chekedCard._id !== card._id));
+    api
+      .deleteCard(card._id)
+      .then(() => {
+        setCards(cards.filter((chekedCard) => chekedCard._id !== card._id));
+      })
+      .catch((error) => console.log(`Ошибка: ${error}`));
   }
 
   // Функция эффекта для данных профиля и карточки
@@ -82,9 +85,9 @@ const App = () => {
   // Обработчик закрытия всех попапов
   function closeAllPopups() {
     setSelectedCard(null);
-    setAvatarPopupOpen();
-    setProfilePopupOpen();
-    setAddPlacePopupOpen();
+    setAvatarPopupOpen(false);
+    setProfilePopupOpen(false);
+    setAddPlacePopupOpen(false);
   }
 
   // Обработчик добавления новой карточки
