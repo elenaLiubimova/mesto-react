@@ -56,7 +56,6 @@ const App = () => {
     Promise.all([api.getProfileInfo(), api.getInitialCards()])
       .then(([currentUser, cards]) => {
         setCurrentUser(currentUser);
-
         setCards(cards);
       })
       .catch((error) => console.log(`Ошибка: ${error}`));

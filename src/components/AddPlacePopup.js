@@ -27,39 +27,36 @@ const AddPlacePopup = ({ isOpen, onClose, onAddPlace }) => {
       onClose={onClose}
       onSubmit={handleSubmit}
       buttonText="Создать"
-      children={
-        <>
-          <label className="edit-form__field">
-            <input
-              className="edit-form__item"
-              onChange={handleNameInput}
-              value={name}
-              id="place-input"
-              type="text"
-              name="name"
-              placeholder="Название"
-              minLength="2"
-              maxLength="30"
-              required
-            />
-            <span className="edit-form__item-error place-input-error"></span>
-          </label>
-          <label className="edit-form__field">
-            <input
-              className="edit-form__item"
-              onChange={handleLinkInput}
-              value={link}
-              id="photo-input"
-              type="url"
-              name="link"
-              placeholder="Ссылка на картинку"
-              required
-            />
-            <span className="edit-form__item-error photo-input-error"></span>
-          </label>
-        </>
-      }
-    />
+    >
+      <label className="edit-form__field">
+        <input
+          className="edit-form__item"
+          onChange={handleNameInput}
+          value={name}
+          id="place-input"
+          type="text"
+          name="name"
+          placeholder="Название"
+          minLength="2"
+          maxLength="30"
+          required
+        />
+        <span className="edit-form__item-error place-input-error"></span>
+      </label>
+      <label className="edit-form__field">
+        <input
+          className="edit-form__item"
+          onChange={handleLinkInput}
+          value={link}
+          id="photo-input"
+          type="url"
+          name="link"
+          placeholder="Ссылка на картинку"
+          required
+        />
+        <span className="edit-form__item-error photo-input-error"></span>
+      </label>
+    </PopupWithForm>
   );
 };
 
