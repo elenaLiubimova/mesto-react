@@ -1,0 +1,29 @@
+{
+  "files": {
+    "main.css": "/mesto-react/static/css/main.46c8feff.css",
+    "main.js": "/mesto-react/static/js/main.4964f5e3.js",
+    "static/js/787.5530211c.chunk.js": "/mesto-react/static/js/787.5530211c.chunk.js",
+    "static/media/Inter-Medium.woff": "/mesto-react/static/media/Inter-Medium.9053572c46aeb4b16caa.woff",
+    "static/media/Inter-Black.woff": "/mesto-react/static/media/Inter-Black.c6938660eec019fefd68.woff",
+    "static/media/Inter-Regular.woff": "/mesto-react/static/media/Inter-Regular.8c206db99195777c6769.woff",
+    "static/media/Inter-Medium.woff2": "/mesto-react/static/media/Inter-Medium.293fd13dbca5a3e450ef.woff2",
+    "static/media/Inter-Black.woff2": "/mesto-react/static/media/Inter-Black.15ca31c0a2a68f76d2d1.woff2",
+    "static/media/Inter-Regular.woff2": "/mesto-react/static/media/Inter-Regular.c8ba52b05a9ef10f4758.woff2",
+    "static/media/logo.svg": "/mesto-react/static/media/logo.047d20f82e561e6e60633f09bff70fe1.svg",
+    "static/media/like_inactive.svg": "/mesto-react/static/media/like_inactive.a6e1371387b394028194.svg",
+    "index.html": "/mesto-react/index.html",
+    "static/media/delete_icon.svg": "/mesto-react/static/media/delete_icon.bef38aca48d7dbd16c70.svg",
+    "static/media/like_active.svg": "/mesto-react/static/media/like_active.b9e22b12c21f10fbc48a.svg",
+    "static/media/pen.svg": "/mesto-react/static/media/pen.8bf1d41faaeae29a8630.svg",
+    "static/media/plus.svg": "/mesto-react/static/media/plus.774639ca09cef6665aef.svg",
+    "static/media/close_icon.svg": "/mesto-react/static/media/close_icon.ec56f2e806c2d5f2e13c.svg",
+    "static/media/pen_hover.svg": "/mesto-react/static/media/pen_hover.d86f9ef14d5daf49f6d4.svg",
+    "main.46c8feff.css.map": "/mesto-react/static/css/main.46c8feff.css.map",
+    "main.4964f5e3.js.map": "/mesto-react/static/js/main.4964f5e3.js.map",
+    "787.5530211c.chunk.js.map": "/mesto-react/static/js/787.5530211c.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.46c8feff.css",
+    "static/js/main.4964f5e3.js"
+  ]
+}
